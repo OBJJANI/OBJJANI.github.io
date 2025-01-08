@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Expert CASINO</title>
+    <!-- Favicon-->
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="jquery.js" type="text/javascript"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <style>
+        .card-body {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+        <div class="container px-5">
+            <a class="navbar-brand" href="expert.html">EXPEET ROULETTE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="choix.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Déconexion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header-->
+    <!-- Features section-->
+    <section class="h-100 bg-dark">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <div class="card card-registration my-4">
+                        <div class="row g-0">
+                            <div class="col-xl-6 d-none d-xl-block">
+                                <img src="img/er.png" alt="Sample photo" class="img-fluid"
+                                    style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card-body p-md-5 text-black">
+                                    <h3 class="mb-5 text-uppercase text-danger">formulaire de contact</h3>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input type="text" id="nom" placeholder="NOM COMPLET"
+                                                    class="form-control form-control-lg" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input type="number" id="tel" placeholder="TELEPHONE"
+                                                    class="form-control form-control-lg" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input type="email" id="email" placeholder="EMAIL"
+                                                    class="form-control form-control-lg" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <select id="créneau" class="form-control form-control-lg">
+                                                    <option value="">Dimanche créneaux</option>
+                                                    <option value="14:00-14:30">14:00 -> 14:30</option>
+                                                    <option value="14:30-15:00">14:30 -> 15:00</option>
+                                                    <option value="15:00-15:30">15:00 -> 15:30</option>
+                                                    <option value="15:30-16:00">15:30 -> 16:00</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input type="button" value="Réserver votre rendez-vous" id="ok"
+                                                    class="btn btn-danger form-control form-control-lg" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark" style=" position: fixed;height: 100px;bottom: 0;width: 100%;">
+        <div class="container px-5">
+            <p class="m-0 text-center text-white">Copyright &copy; OBJ-DEV 2024</p>
+        </div>
+    </footer>
+    <script>
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyCKxxKkZ98Jmnb6IScolTyEepUwefNgviA",
+            authDomain: "read-incoming-sms.firebaseapp.com",
+            databaseURL: "https://read-incoming-sms.firebaseio.com",
+            projectId: "read-incoming-sms",
+            storageBucket: "read-incoming-sms.appspot.com",
+            messagingSenderId: "591114501905",
+            appId: "1:591114501905:web:b8d69a05ef337c07"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        //$(document).ready(function () {
+
+        $('#ok').click(function (event) {
+            var nom = $('#nom').val();
+            var tel = $('#tel').val();
+            var email = $('#email').val();
+            var creneau = $('#créneau').val();
+            if (email != '' && tel != '' && nom != '' && creneau != '') {
+
+
+
+                var rootRef = firebase.database().ref();
+                var storesRef = rootRef.child('addicteurs');
+                var newStoreRef = storesRef.push();
+                newStoreRef.set({
+                    "nom": nom,
+                    "tel": tel,
+                    "email": email,
+                    "creneau": creneau
+
+                });
+                alert("Vous aurez recevoir votre lien de rendez vous sur votre whatsapp");
+            } else {
+                alert("Merci de remplir les champs");
+
+            }
+
+        });
+        //  });
+
+
+    </script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+
+</html>
